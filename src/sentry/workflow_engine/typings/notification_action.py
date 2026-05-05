@@ -49,6 +49,7 @@ class ActionType(StrEnum):
 
     GITHUB = "github"
     GITHUB_ENTERPRISE = "github_enterprise"
+    GITLAB = "gitlab"
     JIRA = "jira"
     JIRA_SERVER = "jira_server"
     AZURE_DEVOPS = "vsts"
@@ -142,6 +143,10 @@ ACTION_FIELD_MAPPINGS: dict[str, ActionFieldMapping] = {
     ),
     ActionType.GITHUB_ENTERPRISE: ActionFieldMapping(
         id="sentry.integrations.github_enterprise.notify_action.GitHubEnterpriseCreateTicketAction",
+        integration_id_key="integration",
+    ),
+    ActionType.GITLAB: ActionFieldMapping(
+        id="sentry.integrations.gitlab.notify_action.GitlabCreateTicketAction",
         integration_id_key="integration",
     ),
     ActionType.AZURE_DEVOPS: ActionFieldMapping(
@@ -500,6 +505,12 @@ class GithubEnterpriseActionTranslator(TicketActionTranslator):
         return ActionType.GITHUB_ENTERPRISE
 
 
+class GitlabActionTranslator(TicketActionTranslator):
+    @property
+    def action_type(self) -> ActionType:
+        return ActionType.GITLAB
+
+
 class AzureDevopsActionTranslator(TicketActionTranslator):
     @property
     def action_type(self) -> ActionType:
@@ -772,6 +783,7 @@ issue_alert_action_translator_mapping: dict[str, type[BaseActionTranslator]] = {
     ACTION_FIELD_MAPPINGS[ActionType.OPSGENIE]["id"]: OpsgenieActionTranslator,
     ACTION_FIELD_MAPPINGS[ActionType.GITHUB]["id"]: GithubActionTranslator,
     ACTION_FIELD_MAPPINGS[ActionType.GITHUB_ENTERPRISE]["id"]: GithubEnterpriseActionTranslator,
+    ACTION_FIELD_MAPPINGS[ActionType.GITLAB]["id"]: GitlabActionTranslator,
     ACTION_FIELD_MAPPINGS[ActionType.AZURE_DEVOPS]["id"]: AzureDevopsActionTranslator,
     ACTION_FIELD_MAPPINGS[ActionType.JIRA]["id"]: JiraActionTranslatorBase,
     ACTION_FIELD_MAPPINGS[ActionType.JIRA_SERVER]["id"]: JiraServerActionTranslatorBase,

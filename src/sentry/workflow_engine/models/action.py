@@ -63,6 +63,7 @@ class Action(DefaultFieldsModel, JSONConfigBase):
 
         GITHUB = "github"
         GITHUB_ENTERPRISE = "github_enterprise"
+        GITLAB = "gitlab"
         JIRA = "jira"
         JIRA_SERVER = "jira_server"
         AZURE_DEVOPS = "vsts"

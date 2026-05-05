@@ -4,6 +4,7 @@ __all__ = [
     "EmailIssueAlertHandler",
     "GithubIssueAlertHandler",
     "GithubEnterpriseIssueAlertHandler",
+    "GitlabIssueAlertHandler",
     "JiraIssueAlertHandler",
     "JiraServerIssueAlertHandler",
     "MSTeamsIssueAlertHandler",
@@ -21,6 +22,7 @@ from .handlers.discord_issue_alert_handler import DiscordIssueAlertHandler
 from .handlers.email_issue_alert_handler import EmailIssueAlertHandler
 from .handlers.github_enterprise_issue_alert_handler import GithubEnterpriseIssueAlertHandler
 from .handlers.github_issue_alert_handler import GithubIssueAlertHandler
+from .handlers.gitlab_issue_alert_handler import GitlabIssueAlertHandler
 from .handlers.jira_issue_alert_handler import JiraIssueAlertHandler
 from .handlers.jira_server_issue_alert_handler import JiraServerIssueAlertHandler
 from .handlers.msteams_issue_alert_handler import MSTeamsIssueAlertHandler
