@@ -292,6 +292,7 @@ _SENTRY_RULES = (
     "sentry.rules.actions.notify_event.NotifyEventAction",
     "sentry.rules.actions.notify_event_service.NotifyEventServiceAction",
     "sentry.rules.actions.sentry_apps.notify_event.NotifyEventSentryAppAction",
+    "sentry.integrations.gitlab.actions.create_ticket.GitlabCreateTicketAction",
     "sentry.rules.conditions.every_event.EveryEventCondition",
     "sentry.rules.conditions.first_seen_event.FirstSeenEventCondition",
     "sentry.rules.conditions.regression_event.RegressionEventCondition",
@@ -333,6 +334,7 @@ TICKET_ACTIONS = frozenset(
         "sentry.integrations.vsts.notify_action.AzureDevopsCreateTicketAction",
         "sentry.integrations.github.notify_action.GitHubCreateTicketAction",
         "sentry.integrations.github_enterprise.notify_action.GitHubEnterpriseCreateTicketAction",
+        "sentry.integrations.gitlab.notify_action.GitlabCreateTicketAction",
     ]
 )
 
