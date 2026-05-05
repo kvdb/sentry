@@ -133,6 +133,11 @@ class GithubEnterpriseActionValidatorHandler(TicketingActionValidatorHandler):
     provider = Action.Type.GITHUB_ENTERPRISE
 
 
+@action_validator_registry.register(Action.Type.GITLAB)
+class GitlabActionValidatorHandler(TicketingActionValidatorHandler):
+    provider = Action.Type.GITLAB
+
+
 @action_validator_registry.register(Action.Type.PAGERDUTY)
 class PagerdutyActionValidatorHandler(BaseActionValidatorHandler):
     provider = Action.Type.PAGERDUTY

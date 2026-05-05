@@ -11,6 +11,7 @@ from sentry.notifications.notification_action.issue_alert_registry import (
     DiscordIssueAlertHandler,
     EmailIssueAlertHandler,
     GithubIssueAlertHandler,
+    GitlabIssueAlertHandler,
     JiraIssueAlertHandler,
     JiraServerIssueAlertHandler,
     MSTeamsIssueAlertHandler,
@@ -30,6 +31,7 @@ from sentry.testutils.helpers.data_blobs import (
     AZURE_DEVOPS_ACTION_DATA_BLOBS,
     EMAIL_ACTION_DATA_BLOBS,
     GITHUB_ACTION_DATA_BLOBS,
+    GITLAB_ACTION_DATA_BLOBS,
     JIRA_ACTION_DATA_BLOBS,
     JIRA_SERVER_ACTION_DATA_BLOBS,
     WEBHOOK_ACTION_DATA_BLOBS,
@@ -524,6 +526,16 @@ class TestAzureDevopsIssueAlertHandler(TestTicketingIssueAlertHandlerBase):
     def test_build_rule_action_blob(self) -> None:
         for expected in AZURE_DEVOPS_ACTION_DATA_BLOBS:
             self._test_build_rule_action_blob(expected, Action.Type.AZURE_DEVOPS)
+
+
+class TestGitlabIssueAlertHandler(TestTicketingIssueAlertHandlerBase):
+    def setUp(self) -> None:
+        super().setUp()
+        self.handler = GitlabIssueAlertHandler()
+
+    def test_build_rule_action_blob(self) -> None:
+        for expected in GITLAB_ACTION_DATA_BLOBS:
+            self._test_build_rule_action_blob(expected, Action.Type.GITLAB)
 
 
 class TestJiraIssueAlertHandler(TestTicketingIssueAlertHandlerBase):

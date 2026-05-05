@@ -246,6 +246,23 @@ GITHUB_ACTION_DATA_BLOBS = [
     },
 ]
 
+
+GITLAB_ACTION_DATA_BLOBS = [
+    {
+        "integration": "123456",
+        "id": "sentry.integrations.gitlab.notify_action.GitlabCreateTicketAction",
+        "dynamic_form_fields": [
+            {
+                "name": "project",
+                "label": "GitLab Project",
+            },
+        ],
+        "project": "1234",
+        "uuid": "12345678-90ab-cdef-0123-456789abcdef",
+    }
+]
+
+
 AZURE_DEVOPS_ACTION_DATA_BLOBS = [
     # Complete example
     {
