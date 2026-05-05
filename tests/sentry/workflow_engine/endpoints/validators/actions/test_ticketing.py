@@ -79,3 +79,12 @@ class TestGithubEnterpriseActionValidator(TestGitHubActionValidator):
             context={"organization": self.organization},
         )
         assert validator.is_valid() is False
+
+
+class TestGitlabActionValidator(BaseTicketingActionValidatorTest):
+    __test__ = True
+    provider = Action.Type.GITLAB
+
+    def setUp(self) -> None:
+        super().setUp()
+        self.valid_data["data"] = {"additional_fields": {"project": "1234"}}

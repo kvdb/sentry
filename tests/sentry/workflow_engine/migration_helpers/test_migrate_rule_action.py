@@ -10,6 +10,7 @@ from sentry.testutils.helpers.data_blobs import (
     AZURE_DEVOPS_ACTION_DATA_BLOBS,
     EMAIL_ACTION_DATA_BLOBS,
     GITHUB_ACTION_DATA_BLOBS,
+    GITLAB_ACTION_DATA_BLOBS,
     JIRA_ACTION_DATA_BLOBS,
     JIRA_SERVER_ACTION_DATA_BLOBS,
     WEBHOOK_ACTION_DATA_BLOBS,
@@ -595,6 +596,22 @@ class TestNotificationActionMigrationUtils(TestCase):
         with pytest.raises(ValueError):
             build_notification_actions_from_rule_data_actions(action_data, is_dry_run=True)
 
+    def test_gitlab_action_migration(self) -> None:
+        action_data = GITLAB_ACTION_DATA_BLOBS
+        actions = build_notification_actions_from_rule_data_actions(action_data)
+        self.assert_actions_migrated_correctly(actions, action_data, "integration", None, None)
+
+    def test_gitlab_action_migration_malformed(self) -> None:
+        action_data = [
+            {
+                "uuid": "12345678-90ab-cdef-0123-456789abcdef",
+                "id": "sentry.integrations.gitlab.notify_action.GitlabCreateTicketAction",
+            },
+        ]
+
+        with pytest.raises(ValueError):
+            build_notification_actions_from_rule_data_actions(action_data, is_dry_run=True)
+
     def test_azure_devops_migration(self) -> None:
         action_data = AZURE_DEVOPS_ACTION_DATA_BLOBS
         actions = build_notification_actions_from_rule_data_actions(action_data)
@@ -748,6 +765,10 @@ class TestNotificationActionMigrationUtils(TestCase):
                 ActionType.GITHUB_ENTERPRISE,
             ),
             (
+                "sentry.integrations.gitlab.notify_action.GitlabCreateTicketAction",
+                ActionType.GITLAB,
+            ),
+            (
                 "sentry.integrations.vsts.notify_action.AzureDevopsCreateTicketAction",
                 ActionType.AZURE_DEVOPS,
             ),
@@ -848,6 +869,16 @@ class TestNotificationActionMigrationUtils(TestCase):
                     "uuid": "test-uuid",
                 },
                 Action.Type.GITHUB_ENTERPRISE,
+            ),
+            # GitLab
+            (
+                {
+                    "integration": "1",
+                    "id": "sentry.integrations.gitlab.notify_action.GitlabCreateTicketAction",
+                    "project": "1234",
+                    "uuid": "test-uuid",
+                },
+                Action.Type.GITLAB,
             ),
             # Azure DevOps
             (
