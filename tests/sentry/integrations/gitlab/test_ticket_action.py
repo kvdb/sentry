@@ -5,7 +5,7 @@ import responses
 from django.urls import reverse
 from rest_framework.test import APITestCase as BaseAPITestCase
 
-from sentry.integrations.gitlab import GitlabCreateTicketAction
+from sentry.integrations.gitlab.actions.create_ticket import GitlabCreateTicketAction
 from sentry.integrations.gitlab.integration import GitlabIntegration
 from sentry.integrations.models.external_issue import ExternalIssue
 from sentry.integrations.models.integration import Integration
