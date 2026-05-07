@@ -103,10 +103,14 @@ class GitlabIssuesSpec(SourceCodeIssueIntegration):
         if len(title) > GITLAB_ISSUE_TITLE_MAX_LENGTH:
             title = title[: GITLAB_ISSUE_TITLE_MAX_LENGTH - 3] + "..."
 
+        issue_data = {"title": title, "description": data["description"]}
+        if labels := data.get("labels"):
+            issue_data["labels"] = labels
+
         try:
             issue = client.create_issue(
                 project=project_id,
-                data={"title": title, "description": data["description"]},
+                data=issue_data,
             )
             project = client.get_project(project_id)
         except ApiError as e:

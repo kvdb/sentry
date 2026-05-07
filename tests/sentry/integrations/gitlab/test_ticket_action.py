@@ -115,6 +115,7 @@ class GitlabTicketRulesTestCase(RuleTestCase, BaseAPITestCase):
                         "integration": self.integration.id,
                         "dynamic_form_fields": [{"name": "project"}],
                         "project": self.project_id,
+                        "labels": "Bot::issue,Mission:MonitoringAlerting,Bug",
                     }
                 ],
                 "conditions": [],
@@ -134,6 +135,7 @@ class GitlabTicketRulesTestCase(RuleTestCase, BaseAPITestCase):
 
         request_data = orjson.loads(responses.calls[0].request.body)
         assert request_data["title"] == event.title
+        assert request_data["labels"] == "Bot::issue,Mission:MonitoringAlerting,Bug"
         assert "This issue was automatically created by Sentry" in request_data["description"]
 
         self.trigger(event, rule_object)
