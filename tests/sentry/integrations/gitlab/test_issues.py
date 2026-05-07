@@ -183,6 +183,7 @@ class GitlabIssuesTest(GitLabTestCase):
             "project": project_id,
             "title": "hello",
             "description": "This is the description",
+            "labels": "Bot::issue,Mission:MonitoringAlerting,Bug",
         }
 
         assert self.installation.create_issue(form_data) == {
@@ -193,6 +194,8 @@ class GitlabIssuesTest(GitLabTestCase):
             "project": project_id,
             "metadata": {"display_name": key},
         }
+        request_data = orjson.loads(responses.calls[0].request.body)
+        assert request_data["labels"] == "Bot::issue,Mission:MonitoringAlerting,Bug"
 
     @responses.activate
     def test_get_issue(self) -> None:
